@@ -4,30 +4,35 @@ import { toast } from 'react-toastify';
 import history from '~/services/history';
 import api from '~/services/api';
 
-import { signInSuccess } from './actions';
+import { signInSuccess, signFailure } from './actions';
 
 export function* signIn({ payload }) {
-  const { email, password } = payload;
+  try {
+    const { email, password } = payload;
 
-  console.tron.log(api);
+    console.tron.log(api);
 
-  const response = yield call(api.post, 'sessions', {
-    email,
-    password,
-  });
+    const response = yield call(api.post, 'sessions', {
+      email,
+      password,
+    });
 
-  console.tron.log(response.data);
+    console.tron.log(response.data);
 
-  const { token, user } = response.data;
+    const { token, user } = response.data;
 
-  if (!user.provider) {
-    toast.error('Usuário não prestador de serviço');
-    return;
+    if (!user.provider) {
+      toast.error('Usuário não prestador de serviço');
+      return;
+    }
+
+    yield put(signInSuccess(token, user));
+
+    history.push('/dashboard');
+  } catch (error) {
+    yield put(signFailure());
+    toast.error('Falha na autenticação, verifique seus dados');
   }
-
-  yield put(signInSuccess(token, user));
-
-  history.push('/dashboard');
 }
 
 export default all([takeLatest('@auth/SIGN_IN_REQUEST', signIn)]);
