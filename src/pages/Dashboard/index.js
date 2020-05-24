@@ -37,9 +37,6 @@ export default function Dashboard() {
 
       const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
 
-      console.tron.log(timezone);
-      console.tron.log(response.data);
-
       const data = range.map((hour) => {
         const checkDate = setMilliseconds(
           setSeconds(setMinutes(setHours(date, hour), 0), 0),
