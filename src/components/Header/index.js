@@ -22,6 +22,10 @@ export default function Header() {
         <aside>
           <Notifications />
           <Profile>
+            <div>
+              <strong>{profile.name}</strong>
+              <Link to="/profile">Meu perfil</Link>
+            </div>
             <img
               src={
                 profile.avatar.url ||
@@ -29,10 +33,6 @@ export default function Header() {
               }
               alt={profile.name}
             />
-            <div>
-              <strong>{profile.name}</strong>
-              <Link to="/profile">Meu perfil</Link>
-            </div>
           </Profile>
         </aside>
       </Content>

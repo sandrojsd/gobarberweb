@@ -42,7 +42,7 @@ export const Profile = styled.div`
 
   div {
     text-align: left;
-    margin-left: 10px;
+    margin-right: 10px;
 
     strong {
       display: block;
